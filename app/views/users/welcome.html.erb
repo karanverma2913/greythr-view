@@ -1,0 +1,9 @@
+<div style = "color:red"> <%= flash[:notice] %> </div>
+<h1 align="center">Welcome to GreytHR</h1>
+<%= form_with url: '/login', method: :post do |form| %>
+  <%= form.label :email %>
+  <%= form.text_field :email %> <br><br>
+  <%= form.label :password %>
+  <%= form.text_field :password %> <br><br>
+  <%= form.submit 'Login' %>
+<% end %>

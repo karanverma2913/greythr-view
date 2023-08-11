@@ -1,0 +1,41 @@
+<div style = "color:red"> <%= flash[:not_created] %> </div>
+<h1>Users#new</h1>
+
+<%= form_with model: @user,url:"/users",method: :post do |form| %>
+  <%= form.label :name%>
+  <%= form.text_field :name%> <br><br>
+  <% @user.errors.full_messages_for(:name).each do |message| %>
+      <div><%= message %></div>
+  <% end %>
+
+  <%= form.email_field :email%> <br><br>
+  <% @user.errors.full_messages_for(:email).each do |message| %>
+      <div> <%= message %> <div>
+  <% end %>
+
+  <%= form.label :password%>
+  <%= form.password_field :password%> <br><br>
+  <% @user.errors.full_messages_for(:password).each do |message| %>
+    <div> <%= message %> </div>
+  <% end %>
+
+  <%= form.label :role%>
+  <%= form.text_field :role%> <br><br>
+  <% @user.errors.full_messages_for(:role).each do |message| %>
+    <div> <%= message %> </div>
+  <% end %>
+
+  <%= form.label :joining_date%>
+  <%= form.date_field :joining_date%> <br><br>
+  <% @user.errors.full_messages_for(:joining_date).each do |message| %>
+    <div> <%= message %> </div>
+  <% end %>
+
+  <%= form.label :salary%>
+  <%= form.text_field :salary%> <br><br>
+  <% @user.errors.full_messages_for(:salary).each do |message| %>
+    <div> <%= message %> </div>
+  <% end %>
+
+  <%= form.submit "Create Employee" %>
+<% end %>

@@ -35,7 +35,10 @@
         <td><%= user.salary %></td>
         <td><%= user.balance %></td>
         <td><%= user.type %></td>
+        <td><%= link_to "View", user_path(user) %> </td>
       </tr>
     <% end %>
   </tbody>
 </table>
+<%= button_to "Register Employee",new_user_path, method: :get %>
+<%= button_to "Home",home_path, method: :get %>

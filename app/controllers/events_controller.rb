@@ -1,6 +1,7 @@
 class EventsController < ApplicationController
 
   def index
+    @events = Event.all
   end
 
   def show
@@ -14,7 +15,7 @@ class EventsController < ApplicationController
   def create
     @event = Event.new(event_params)
     if @event.save
-      redirect_to events_show(@event)
+      redirect_to event_path(@event)
     else
       render 'new'
     end
@@ -27,7 +28,7 @@ class EventsController < ApplicationController
   def update
     @event = Event.find(params[:id])
     if @event.update(event_params)
-      redirect_to events_show(@event)
+      redirect_to events_show_path(@event)
     else
       render 'edit'
     end
@@ -35,7 +36,12 @@ class EventsController < ApplicationController
 
   def destroy
     @event = Event.find(params[:id])
-    @event.destory
-    redirect_to events_index
+    @event.destroy
+    redirect_to events_index_path
+  end
+
+  private
+  def event_params
+    params.require(:event).permit(:name, :date, :description)
   end
 end

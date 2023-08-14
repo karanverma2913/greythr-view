@@ -1,1 +1,36 @@
+<div style = "color:Green"> <%= flash[:created] %> </div>
 <h1>Events#index</h1>
+<head>
+  <style>
+    table {
+      border: 1px solid black;
+    }
+    th {
+      border: 1px solid black;
+    }
+    td {
+      border: 1px solid black;
+    }
+  </style>
+</head>
+<table style="border: 1px solid black;  ">
+  <thead>
+    <tr>
+      <th>name</th>
+      <th>date</th>
+      <th>description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @events.each do |event| %>
+      <tr>
+        <td><%= event.name %></td>
+        <td><%= event.date %></td>
+        <td><%= event.description %></td>
+        <td><%= link_to "View", event_path(event) %> </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= button_to "Create Event",events_path, method: :get if @current_user.type == 'Hr %>
+<%= button_to "Home",home_path, method: :get %>

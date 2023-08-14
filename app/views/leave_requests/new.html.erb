@@ -1,0 +1,31 @@
+<div style = "color:red"> <%= flash[:not_created] %> </div>
+<h1>LeaveRequest#new</h1>
+
+<%= form_with model: @leave_request, url:"/leave_request", method: :post do |form| %>
+  <%= form.label :start_date %>
+  <%= form.date_field :start_date %> <br><br>
+  <% @leave_request.errors.full_messages_for(:start_date).each do |message| %>
+      <div><%= message %></div>
+  <% end %>
+
+  <%= form.label :end_date %>
+  <%= form.date_field :end_date %> <br><br>
+  <% @leave_request.errors.full_messages_for(:end_date).each do |message| %>
+      <div> <%= message %> <div>
+  <% end %>
+
+  <%= form.label :leave_type %>
+  <%= form.select :leave_type, ['PL', 'CL', 'SL'] %> <br><br>
+  <% @leave_request.errors.full_messages_for(:leave_type).each do |message| %>
+    <div> <%= message %> </div>
+  <% end %>
+
+  <%= form.label :reason %>
+  <%= form.text_field :reason %> <br><br>
+  <% @leave_request.errors.full_messages_for(:reason).each do |message| %>
+    <div> <%= message %> </div>
+  <% end %>
+
+  <%= form.submit "Create LeaveRequest" %>
+<% end %>
+<%= button_to "Home",home_path, method: :get %>

@@ -1,2 +1,6 @@
 <h1>Holidays#show</h1>
-<p>Find me in app/views/holidays/show.html.erb</p>
+<span> Name :- </span><%= @holiday.name %> <br>
+<span> Date :- </span><%= @holiday.date %> <br>
+<%= button_to "Edit", edit_holiday_path(@holiday) %> <br>
+<%= button_to "Delete", holiday_path(@holiday), method: :delete %> <br>
+<%= button_to "Home",home_path, method: :get %>

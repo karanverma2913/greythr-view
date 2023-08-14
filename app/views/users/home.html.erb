@@ -1,0 +1,17 @@
+<h1>Home</h1>
+<% if @current_user.type == 'Hr' %>
+
+  <%= button_to "All Employees",users_path, method: :get %>
+  <%= button_to "All Events", events_path, method: :get %>
+  <%= button_to "All Holidays",holidays_path, method: :get %>
+  <%= button_to "Log_out","/logout",method: :delete %>
+
+<% elsif @current_user.type == 'Employee' %>
+
+  <%= button_to "Update Details",users_path, method: :get %>
+  <%= button_to "Create Leave Request", new_leave_request_path, method: :get %>
+  <%= button_to "All Holidays",holidays_path, method: :get %>
+  <%= button_to "All Events",holidays_path, method: :get %>
+  <%= button_to "Log_out","/logout",method: :delete %>
+
+<% end %>

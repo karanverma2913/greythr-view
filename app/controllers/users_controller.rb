@@ -12,10 +12,8 @@ class UsersController < ApplicationController
   def welcome
   end
 
-  def hr
-  end
-
-  def employee
+  def home
+    @current_user
   end
 
   def new
@@ -24,7 +22,6 @@ class UsersController < ApplicationController
 
   def create
     @user = Employee.new(user_params)
-    debugger
     if @user.save
       flash[:created] = 'User Created'
       redirect_to users_path

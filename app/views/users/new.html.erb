@@ -8,6 +8,7 @@
       <div><%= message %></div>
   <% end %>
 
+  <%= form.label :email%> <br><br>
   <%= form.email_field :email%> <br><br>
   <% @user.errors.full_messages_for(:email).each do |message| %>
       <div> <%= message %> <div>
@@ -39,3 +40,4 @@
 
   <%= form.submit "Create Employee" %>
 <% end %>
+<%= button_to "Home",home_path, method: :get %>

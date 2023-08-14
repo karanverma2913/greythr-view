@@ -5,3 +5,5 @@
 <span> Role :- </span><%= @user.role %> <br>
 <span> Salary :- </span><%= @user.salary %> <br>
 <span> Balance :- </span><%= @user.balance %> <br>
+<%= button_to "Delete", user_path(@user), method: :delete %> <br>
+<%= button_to "Home",home_path, method: :get %>

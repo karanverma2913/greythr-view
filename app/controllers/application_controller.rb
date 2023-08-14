@@ -6,11 +6,11 @@ class ApplicationController < ActionController::Base
     @user = User.find_by(email: params[:email], password: params[:password])
     raise if @user.nil?
     if @user.type == 'Employee'
-      redirect_to employee_path
+      redirect_to home_path
       session[:current_user] = jwt_encode(email: @user.email)
     elsif @user.type == 'Hr'
       session[:current_user] = jwt_encode(email: @user.email)
-      redirect_to hr_path
+      redirect_to home_path
     else
       raise
     end

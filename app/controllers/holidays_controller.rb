@@ -1,8 +1,8 @@
 class HolidaysController < ApplicationController
-  def index
-    @holidays = Holiday.all, status: :ok
-  end
 
+  def index
+    @holidays = Holiday.all
+  end
   def show
     @holiday = Holiday.find(params[:id])
   end
@@ -14,7 +14,7 @@ class HolidaysController < ApplicationController
   def create
     @holiday = Holiday.new(holiday_params)
     if @holiday.save
-      redirect_to holidays_show(@holiday)
+      redirect_to holiday_path(@holiday)
     else
       render 'new'
     end
@@ -38,6 +38,7 @@ class HolidaysController < ApplicationController
     @holiday.destroy
     redirect_to holidays_index
   end
+
   private
   def holiday_params
     params.require(:holiday).permit(:name, :date)

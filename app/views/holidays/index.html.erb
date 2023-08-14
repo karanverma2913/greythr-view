@@ -1,2 +1,36 @@
-<h1>Holidays#index</h1>
-<p>Find me in app/views/holidays/index.html.erb</p>
+<div style = "color:Green"> <%= flash[:created] %> </div>
+<h1>holidays#index</h1>
+<head>
+  <style>
+    table {
+      border: 1px solid black;
+    }
+    th {
+      border: 1px solid black;
+    }
+    td {
+      border: 1px solid black;
+    }
+  </style>
+</head>
+<table style="border: 1px solid black;  ">
+  <thead>
+    <tr>
+      <th>name</th>
+      <th>date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @holidays.each do |holiday| %>
+      <tr>
+        <td><%= holiday.name %></td>
+        <td><%= holiday.date %></td>
+        <td><%= link_to "View", holiday_path(holiday) %> </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= button_to "Create Holidays",holidays_path, method: :get if @current_user.type == 'Hr' %>
+<%= button_to "Home",home_path, method: :get %>
+

@@ -1,2 +1,19 @@
-<h1>Holidays#edit</h1>
-<p>Find me in app/views/holidays/edit.html.erb</p>
+<div style = "color:red"> <%= flash[:not_created] %> </div>
+<h1>holidays#new</h1>
+
+<%= form_with model: @holiday, url: "/holidays", method: :post do |form| %>
+  <%= form.label :name %>
+  <%= form.text_field :name %> <br><br>
+  <% @holiday.errors.full_messages_for(:name).each do |message| %>
+      <div><%= message %></div>
+  <% end %>
+
+  <%= form.label :date %>
+  <%= form.date_field :date %> <br><br>
+  <% @holiday.errors.full_messages_for(:date).each do |message| %>
+      <div> <%= message %> <div>
+  <% end %>
+
+  <%= form.submit "Update holiday" %>
+<% end %>
+<%= button_to "Home",home_path, method: :get %>

@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   has_many :leave_requests, dependent: :destroy
   validates :name, :email, :password, :salary, :role, presence: true
+
   # validates :joining_date, format: { with: /\d{2}\/\d{2}\/\d{4}/, message: "must be in the following format: mm/dd/yyyy" }
 
   validates :name, format: { with: /\A[a-zA-Z]+(?: [a-zA-Z]+)?\z/,

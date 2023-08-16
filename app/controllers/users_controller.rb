@@ -30,6 +30,23 @@ class UsersController < ApplicationController
     end
   end
 
+  def status
+    @current_user
+  end
+
+  def edit
+    @emoloyee = @current_user
+  end
+
+  def update
+    @employee = User.find(params[:id])
+    if @employee.update(update_params)
+      redirect_to status_path
+    else
+      redirect_to status_path
+    end
+  end
+
   def destroy
     @user = User.find(params[:id])
     @user.destroy
@@ -37,7 +54,12 @@ class UsersController < ApplicationController
   end
 
   private
+
   def user_params
     params.require(:user).permit(:name, :email, :password, :role, :joining_date, :salary)
+  end
+
+  def update_params
+    params.permit(:name, :password)
   end
 end

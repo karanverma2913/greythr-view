@@ -13,9 +13,10 @@
     }
   </style>
 </head>
-<table style="border: 1px solid black;  ">
+<table style="border: 1px solid black; ">
   <thead>
     <tr>
+      <th>Id</th>
       <th>name</th>
       <th>date</th>
       <th>description</th>
@@ -24,13 +25,17 @@
   <tbody>
     <% @events.each do |event| %>
       <tr>
+        <td><%= event.id %></td>
         <td><%= event.name %></td>
         <td><%= event.date %></td>
         <td><%= event.description %></td>
+        <% if  @current_user.type == 'Hr' %>
         <td><%= link_to "View", event_path(event) %> </td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
 </table>
-<%= button_to "Create Event",events_path, method: :get if @current_user.type == 'Hr %>
-<%= button_to "Home",home_path, method: :get %>
+
+<%= button_to "Create event", new_event_path, method: :get if @current_user.type == 'Hr' %>
+<%= button_to "Home", home_path, method: :get %>

@@ -1,7 +1,7 @@
 <div style = "color:red"> <%= flash[:not_created] %> </div>
 <h1>LeaveRequest#new</h1>
 
-<%= form_with model: @leave_request, url:"/leave_request", method: :post do |form| %>
+<%= form_with model: @leave_request, url: "/leave_request", method: :post do |form| %>
   <%= form.label :start_date %>
   <%= form.date_field :start_date %> <br><br>
   <% @leave_request.errors.full_messages_for(:start_date).each do |message| %>
@@ -26,6 +26,6 @@
     <div> <%= message %> </div>
   <% end %>
 
-  <%= form.submit "Create LeaveRequest" %>
+<%= form.submit "Apply Leave" %>
 <% end %>
 <%= button_to "Home",home_path, method: :get %>

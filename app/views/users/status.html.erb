@@ -1,0 +1,10 @@
+<h1>User#Status</h1>
+Name :- <%= @current_user.name %><br>
+email :- <%= @current_user.email %><br>
+password :- <%= @current_user.password %><br>
+role :- <%= @current_user.role %><br>
+Date of Joining :- <%= @current_user.joining_date %><br>
+Salary :- <%= @current_user.salary %><br>
+Leave Balance :- <%= @current_user.balance %><br>
+<%= link_to "Change Password", edit_user_path(@current_user) %>
+<%= button_to "Home", home_path, method: :get %>

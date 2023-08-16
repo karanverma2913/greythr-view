@@ -16,6 +16,7 @@
 <table style="border: 1px solid black;  ">
   <thead>
     <tr>
+      <th>id</th>
       <th>name</th>
       <th>date</th>
     </tr>
@@ -23,14 +24,17 @@
   <tbody>
     <% @holidays.each do |holiday| %>
       <tr>
+        <td><%= holiday.id %></td>
         <td><%= holiday.name %></td>
         <td><%= holiday.date %></td>
-        <td><%= link_to "View", holiday_path(holiday) %> </td>
+        <% if  @current_user.type == 'Hr' %>
+        <td><%= link_to "View", holiday_path(holiday) %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<%= button_to "Create Holidays",holidays_path, method: :get if @current_user.type == 'Hr' %>
+<%= button_to "Create Holidays", new_holiday_path, method: :get if @current_user.type == 'Hr' %>
 <%= button_to "Home",home_path, method: :get %>
 

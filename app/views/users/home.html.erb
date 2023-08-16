@@ -1,17 +1,56 @@
-<h1>Home</h1>
+<style>
+  body {
+    background-color: lightblue;
+  }
+  .navbar {
+  background-color: #3498DB;
+  color: #FFFFFF;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+}
+.navbar-title {
+  font-size: 24px;
+  margin: 0;
+}
+.navbar-buttons {
+  display: flex;
+  gap: 10px;
+}
+.navbar-button {
+  background-color: #2ECC71;
+  color: #FFFFFF;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  text-decoration: none;
+  cursor: pointer;
+}
+.navbar-button:hover {
+  background-color: #27AE60;
+}
+</style>
+<nav class="navbar">
+<div style = "color:Red"> <%= flash[:notice] %> </div>
+<h1 class="navbar-title">Home</h1>
 <% if @current_user.type == 'Hr' %>
-
-  <%= button_to "All Employees",users_path, method: :get %>
-  <%= button_to "All Events", events_path, method: :get %>
-  <%= button_to "All Holidays",holidays_path, method: :get %>
-  <%= button_to "Log_out","/logout",method: :delete %>
+<div class="navbar-buttons">
+  <%= button_to "All Employees",users_path, method: :get, class: 'navbar-button' %>
+  <%= button_to "All Leave Request",all_leave_request_path, method: :get, class: 'navbar-button' %>
+  <%= button_to "All Events", events_path, method: :get, class: 'navbar-button' %>
+  <%= button_to "All Holidays",holidays_path, method: :get, class: 'navbar-button' %>
+  <%= button_to "Log_out","/logout",method: :delete , class: 'navbar-button'%>
+  </div>
+  </nav>
 
 <% elsif @current_user.type == 'Employee' %>
 
-  <%= button_to "Update Details",users_path, method: :get %>
+  <%= button_to "Status",status_path, method: :get %>
   <%= button_to "Create Leave Request", new_leave_request_path, method: :get %>
+  <%= button_to "Leave History", history_path, method: :get %>
   <%= button_to "All Holidays",holidays_path, method: :get %>
-  <%= button_to "All Events",holidays_path, method: :get %>
+  <%= button_to "All Events",events_path, method: :get %>
   <%= button_to "Log_out","/logout",method: :delete %>
 
 <% end %>

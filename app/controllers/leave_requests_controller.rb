@@ -1,46 +1,37 @@
 class LeaveRequestsController < ApplicationController
 
   def index
-    leave_requests = LeaveRequest.where(status: 'pending')
-    if leave_requests.present?
-      render json: leave_requests, status: :ok
-    else
-      render json: { message: 'There is no leave requests' }, status: :unprocessable_entity
-    end
-  end
-
-  def show
-    render json: @current_user.leave_requests, status: :ok
+    @leave_requests = LeaveRequest.all
   end
 
   def new
     @leave_request = LeaveRequest.new
   end
 
+  def show
+    @leave_request = LeaveRequest.find(params[:id])
+  end
+
   def create
-    debugger
     last_request = @current_user.leave_requests.last
     raise unless last_request.nil? || last_request.status == 'approved' || last_request.status == 'rejected'
 
-    leave_request = @current_user.leave_requests.new(leave_params)
-    dif = leave_request.end_date - leave_request.start_date
+    @leave_request = @current_user.leave_requests.new(leave_params)
+    dif = @leave_request.end_date - @leave_request.start_date
     raise if @current_user.balance <= dif.to_i + 1
 
-    leave_request.days = dif.to_i + 1
-    @current_user.balance = @current_user.balance - leave_request.days
-    if leave_request && @current_user
-      redirect_to leave_request
+    @leave_request.days = dif.to_i + 1
+    @leave_request.status = 'pending'
+    @current_user.balance = @current_user.balance - @leave_request.days
+    if @leave_request.save && @current_user.save
+      flash[:notice] = 'Applied Successfully !'
+      redirect_to history_path
     else
       render 'new'
     end
   rescue StandardError
-    render json: { message: 'Insufficient balance or last request is pending' }, status: :unprocessable_entity
-  end
-
-  def edit
-  end
-
-  def update
+    flash[:notice] = 'Not enough balance or Last request is pending !'
+    redirect_to home_path
   end
 
   def destroy
@@ -55,29 +46,36 @@ class LeaveRequestsController < ApplicationController
   end
 
   def approve_request
-    leave_request = LeaveRequest.find_by(id: params[:id])
+    leave_request = LeaveRequest.find(params[:id])
     raise if leave_request.status != 'pending'
 
     leave_request.status = 'approved'
     leave_request.save
-    render json: { message: "Emp id:#{leave_request.employee_id} leave request is approved " }, status: :ok
+    flash[:approved] = 'Leave Request Approved ! '
+    redirect_to all_leave_request_path
   rescue StandardError
-    render json: { message: 'Not Found' }, status: :unprocessable_entity
+    flash[:notice] = 'Already approved or rejected'
+    redirect_to all_leave_request_path
   end
 
   def reject_request
     leave_request = LeaveRequest.find_by(id: params[:id])
     raise if leave_request.status != 'pending'
 
-    current_user = Employee.find_by(id: leave_request.employee_id)
+    current_user = User.find_by(id: leave_request.user_id)
     current_user.update(balance: current_user.balance + leave_request.days)
     leave_request.status = 'rejected'
     leave_request.save
-    render json: { message: "Emp id: #{leave_request.employee_id} leave request is rejected " }, status: :ok
+    flash[:rejected] = 'Leave Request Rejected  ! '
+    redirect_to all_leave_request_path
   rescue StandardError
-    render json: { error: 'Not Found' }, status: :unprocessable_entity
+    flash[:notice] = 'Already approved or rejected'
+    redirect_to all_leave_request_path
   end
 
+  def history
+    @leave_request = @current_user.leave_requests.all
+  end
   private
 
   def leave_params

@@ -36,7 +36,7 @@ class HolidaysController < ApplicationController
   def destroy
     @holiday = Holiday.find(params[:id])
     @holiday.destroy
-    redirect_to holidays_index
+    redirect_to holidays_path
   end
 
   private

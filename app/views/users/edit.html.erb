@@ -1,10 +1,8 @@
 <h1>Users#edit</h1>
-<p>Find me in app/views/users/edit.html.erb</p>
-<%= form_with url: '/login', method: :post do |form| %>
-  <%= form.label :email %>
-  <%= form.text_field :email %> <br><br>
+<%= form_with model: @employee, url: "/users/#{@current_user.id}", method: :patch do |form| %>
+  <%= form.label :name %>
+  <%= form.text_field :name %> <br><br>
   <%= form.label :password %>
   <%= form.text_field :password %> <br><br>
-  <%= form.submit 'Login' %>
-  <div style = "color:red"> <%= flash[:notice] if flash[:notice] %> </div>
+  <%= form.submit 'Update' %>
 <% end %>

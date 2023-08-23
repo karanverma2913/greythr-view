@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UsersController < ApplicationController
   before_action :authenticate_user, except: :welcome
 
@@ -9,11 +11,10 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
-  def welcome
-  end
+  def welcome; end
 
   def home
-    @current_user
+    @users = User.all
   end
 
   def new
@@ -24,7 +25,7 @@ class UsersController < ApplicationController
     @user = Employee.new(user_params)
     if @user.save
       flash[:created] = 'User Created'
-      redirect_to users_path
+      redirect_to home_path
     else
       render :new, status: :unprocessable_entity
     end
@@ -35,22 +36,18 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @emoloyee = @current_user
+    @employee = @current_user
   end
 
   def update
     @employee = User.find(params[:id])
-    if @employee.update(update_params)
-      redirect_to status_path
-    else
-      redirect_to status_path
-    end
+    redirect_to status_path
   end
 
   def destroy
     @user = User.find(params[:id])
     @user.destroy
-    redirect_to users_path
+    redirect_to home_path
   end
 
   private

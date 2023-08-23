@@ -22,3 +22,15 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+    @user = User.find_by(email: params[:email], password: params[:password])
+    session[:current_user] = jwt_encode(email: @user.email)
+    if @user.nil?
+      raise
+    elsif @user.type == 'Employee' && @user.type == 'Hr'
+      redirect_to home_path
+    end
+  rescue StandardError
+    flash[:notice] = 'You are not authorized(Login First)'
+    redirect_to root_path
+  end

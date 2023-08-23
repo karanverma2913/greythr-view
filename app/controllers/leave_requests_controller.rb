@@ -1,5 +1,6 @@
-class LeaveRequestsController < ApplicationController
+# frozen_string_literal: true
 
+class LeaveRequestsController < ApplicationController
   def index
     @leave_requests = LeaveRequest.all
   end
@@ -27,7 +28,7 @@ class LeaveRequestsController < ApplicationController
       flash[:notice] = 'Applied Successfully !'
       redirect_to history_path
     else
-      render 'new'
+      render :new, status: :unprocessable_entity
     end
   rescue StandardError
     flash[:notice] = 'Not enough balance or Last request is pending !'
@@ -76,6 +77,7 @@ class LeaveRequestsController < ApplicationController
   def history
     @leave_request = @current_user.leave_requests.all
   end
+
   private
 
   def leave_params

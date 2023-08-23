@@ -1,8 +1,10 @@
-class HolidaysController < ApplicationController
+# frozen_string_literal: true
 
+class HolidaysController < ApplicationController
   def index
     @holidays = Holiday.all
   end
+
   def show
     @holiday = Holiday.find(params[:id])
   end
@@ -16,7 +18,7 @@ class HolidaysController < ApplicationController
     if @holiday.save
       redirect_to holiday_path(@holiday)
     else
-      render 'new'
+      render 'new', status: :unprocessable_entity
     end
   end
 
@@ -40,6 +42,7 @@ class HolidaysController < ApplicationController
   end
 
   private
+
   def holiday_params
     params.require(:holiday).permit(:name, :date)
   end

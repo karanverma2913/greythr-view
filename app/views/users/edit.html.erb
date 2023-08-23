@@ -1,3 +1,69 @@
+<head>
+  <style>
+    @media (min-width: 1025px) {
+      .h-custom {
+        height: 100vh !important;
+      }
+    }
+
+    #event {
+      position: absolute;
+      right: 120px;
+    }
+
+    #home {
+      position: absolute;
+      left: 130px;
+    }
+
+    .join {
+      position: absolute;
+      left: 50px;
+    }
+  </style>
+</head>
+<section class="h-100 h-custom" style="background-color: #343a40;">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-lg-8 col-xl-6">
+        <div class="card rounded-3">
+          <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/img3.webp"
+          class="w-100" style="border-top-left-radius: .3rem; border-top-right-radius: .3rem;"
+          alt="Sample photo">
+          <div class="card-body p-4 p-md-5 mb-5">
+            <h3 class="mb-4 pb-3 pb-md-1 px-md-2">Edit Your Details</h3>
+
+            <%= form_with model: @employee, url:"/users",method: :put, class: "px-md-2" do |form| %>
+            <div class="form-outline mb-4">
+              <%= form.label :name, class: "form-label" %>
+              <%= form.text_field :name, class: "form-control" %>
+              <% @employee.errors.full_messages_for(:name).each do |message| %>
+              <div><%= message %></div>
+              <% end %>
+            </div>
+
+            <div class="form-outline mb-4">
+              <%= form.label :password, class: "form-label" %>
+              <%= form.text_field :password, class: "form-control" %>
+              <% @employee.errors.full_messages_for(:password).each do |message| %>
+              <div><%= message %></div>
+              <% end %>
+            </div>
+
+
+            <%= form.submit "Update", class: "btn btn-success btn-lg mb-1",id: 'event' %>
+
+            <div style = "color:red"> <%= flash[:not_created] %> </div>
+            <% end %>
+            <%= button_to "Home", home_path, method: :get, class:  "btn btn-success btn-lg mb-4 ", id: 'home' %>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <h1>Users#edit</h1>
 <%= form_with model: @employee, url: "/users/#{@current_user.id}", method: :patch do |form| %>
   <%= form.label :name %>
@@ -6,3 +72,4 @@
   <%= form.text_field :password %> <br><br>
   <%= form.submit 'Update' %>
 <% end %>
+<%= button_to "Home",home_path, method: :get, class: 'home' %>

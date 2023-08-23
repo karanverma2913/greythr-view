@@ -1,31 +1,48 @@
-<div style = "color:Green"> <%= flash[:created] %> </div>
-<h1>Events#index</h1>
 <head>
   <style>
-    table {
-      border: 1px solid black;
+    p {
+        color: #fff;
+        background-color: #343a40;
+        text-align: center;
+        padding: 15px;
+        margin-bottom: 0px;
+        font-size: 150%;
+        font-weight: bold;
     }
-    th {
-      border: 1px solid black;
+    #event {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+
     }
-    td {
-      border: 1px solid black;
+    #home {
+      position: absolute;
+      top: 10px;
+      left: 15px;
+    }
+    #home, {
+      padding-left: 1rem!important;
+      padding-right: 1rem!important;
     }
   </style>
 </head>
-<table style="border: 1px solid black; ">
-  <thead>
+
+<p>Events</p>
+
+<table class="table">
+  <thead class="thead-dark">
     <tr>
-      <th>Id</th>
-      <th>name</th>
-      <th>date</th>
-      <th>description</th>
+      <th scope="col">Id</th>
+      <th scope="col">name</th>
+      <th scope="col">date</th>
+      <th scope="col">description</th>
+      <th scope="col"></th>
     </tr>
   </thead>
   <tbody>
     <% @events.each do |event| %>
       <tr>
-        <td><%= event.id %></td>
+        <td scope="row"><%= event.id %></td>
         <td><%= event.name %></td>
         <td><%= event.date %></td>
         <td><%= event.description %></td>
@@ -37,5 +54,7 @@
   </tbody>
 </table>
 
-<%= button_to "Create event", new_event_path, method: :get if @current_user.type == 'Hr' %>
-<%= button_to "Home", home_path, method: :get %>
+<%= button_to "Create event", new_event_path, method: :get, class: "btn btn-outline-light btn-lg px-5",id: 'event' if @current_user.type == 'Hr' %>
+<%= button_to "Home", home_path, method: :get, class: "btn btn-outline-light btn-lg px-5",id: 'home' %>
+
+<div style = "color:Green"> <%= flash[:created] %> </div>

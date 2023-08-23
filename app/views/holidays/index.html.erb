@@ -1,30 +1,47 @@
-<div style = "color:Green"> <%= flash[:created] %> </div>
-<h1>holidays#index</h1>
 <head>
   <style>
-    table {
-      border: 1px solid black;
+    p {
+        color: #fff;
+        background-color: #343a40;
+        text-align: center;
+        padding: 15px;
+        margin-bottom: 0px;
+        font-size: 150%;
+        font-weight: bold;
     }
-    th {
-      border: 1px solid black;
+
+    #holiday {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+
     }
-    td {
-      border: 1px solid black;
+    #home {
+      position: absolute;
+      top: 10px;
+      left: 15px;
+    }
+    #home, #holiday {
+      padding-left: 1rem!important;
+      padding-right: 1rem!important;
     }
   </style>
 </head>
-<table style="border: 1px solid black;  ">
-  <thead>
+
+<p>Holidays</p>
+<table class="table">
+  <thead class="thead-dark">
     <tr>
-      <th>id</th>
-      <th>name</th>
-      <th>date</th>
+      <th scope="col">id</th>
+      <th scope="col">name</th>
+      <th scope="col">date</th>
+      <th scope="col"></th>
     </tr>
   </thead>
   <tbody>
     <% @holidays.each do |holiday| %>
       <tr>
-        <td><%= holiday.id %></td>
+        <td scope="row"><%= holiday.id %></td>
         <td><%= holiday.name %></td>
         <td><%= holiday.date %></td>
         <% if  @current_user.type == 'Hr' %>
@@ -35,6 +52,7 @@
   </tbody>
 </table>
 
-<%= button_to "Create Holidays", new_holiday_path, method: :get if @current_user.type == 'Hr' %>
-<%= button_to "Home",home_path, method: :get %>
+<%= button_to "Create Holidays", new_holiday_path, method: :get, class: "btn btn-outline-light btn-lg px-5", id: 'holiday' if @current_user.type == 'Hr' %>
+<%= button_to "Home",home_path, method: :get, class: "btn btn-outline-light btn-lg px-5", id: 'home' %>
 
+<div style = "color:Green"> <%= flash[:created] %> </div>

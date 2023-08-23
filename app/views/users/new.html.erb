@@ -1,43 +1,98 @@
-<div style = "color:red"> <%= flash[:not_created] %> </div>
-<h1>Users#new</h1>
+<head>
+  <style>
+    @media (min-width: 1025px) {
+      .h-custom {
+        height: 100vh !important;
+      }
+    }
 
-<%= form_with model: @user,url:"/users",method: :post do |form| %>
-  <%= form.label :name%>
-  <%= form.text_field :name%> <br><br>
-  <% @user.errors.full_messages_for(:name).each do |message| %>
-      <div><%= message %></div>
-  <% end %>
+    #employee {
+      position: absolute;
+      right: 120px;
+    }
 
-  <%= form.label :email%> <br><br>
-  <%= form.email_field :email%> <br><br>
-  <% @user.errors.full_messages_for(:email).each do |message| %>
-      <div> <%= message %> <div>
-  <% end %>
+    #home {
+      position: absolute;
+      left: 130px;
+    }
 
-  <%= form.label :password%>
-  <%= form.password_field :password%> <br><br>
-  <% @user.errors.full_messages_for(:password).each do |message| %>
-    <div> <%= message %> </div>
-  <% end %>
+    .join {
+      position: absolute;
+      left: 100px;
+    }
+  </style>
+</head>
 
-  <%= form.label :role%>
-  <%= form.text_field :role%> <br><br>
-  <% @user.errors.full_messages_for(:role).each do |message| %>
-    <div> <%= message %> </div>
-  <% end %>
+<section class="h-100 h-custom" style="background-color: #343a40;">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-lg-8 col-xl-6">
+        <div class="card rounded-3">
+          <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/img3.webp"
+          class="w-100" style="border-top-left-radius: .3rem; border-top-right-radius: .3rem;"
+          alt="Sample photo">
+          <div class="card-body p-4 p-md-5 mb-4">
+            <h3 class="mb-4 pb-3 pb-md-1 px-md-2">Registration Info</h3>
 
-  <%= form.label :joining_date%>
-  <%= form.date_field :joining_date%> <br><br>
-  <% @user.errors.full_messages_for(:joining_date).each do |message| %>
-    <div> <%= message %> </div>
-  <% end %>
+            <%= form_with model: @user,url:"/users",method: :post, class: "px-md-2" do |form| %>
+            <div class="form-outline">
+              <%= form.label :name,class: "form-label" %>
+              <%= form.text_field :name, class: "form-control" %>
+              <% @user.errors.full_messages_for(:name).each do |message| %>
+              <div><%= message %></div>
+              <% end %>
+            </div>
 
-  <%= form.label :salary%>
-  <%= form.text_field :salary%> <br><br>
-  <% @user.errors.full_messages_for(:salary).each do |message| %>
-    <div> <%= message %> </div>
-  <% end %>
+            <div class="form-outline">
+              <%= form.label :email, class: "form-label" %>
+              <%= form.email_field :email,  class: "form-control" %>
+              <% @user.errors.full_messages_for(:email).each do |message| %>
+              <div><%= message %></div>
+              <% end %>
+            </div>
 
-  <%= form.submit "Create Employee" %>
-<% end %>
-<%= button_to "Home",home_path, method: :get %>
+            <div class="form-outline">
+              <%= form.label :password,class: "form-label" %>
+              <%= form.text_field :password, class: "form-control" %>
+              <% @user.errors.full_messages_for(:password).each do |message| %>
+              <div><%= message %></div>
+              <% end %>
+            </div>
+
+            <div class="form-outline">
+              <%= form.label :role, class: "form-label" %>
+              <%= form.text_field :role, class: "form-control" %>
+              <% @user.errors.full_messages_for(:role).each do |message| %>
+              <div><%= message %></div>
+              <% end %>
+            </div>
+
+            <div class="form-outline mb-4">
+              <%= form.label :salary, class: "form-label" %>
+              <%= form.text_field :salary, class: "form-control" %>
+              <% @user.errors.full_messages_for(:salary).each do |message| %>
+              <div> <%= message %> </div>
+              <% end %>
+            </div>
+
+            <div class='input-group date mb-4' id='picker'>
+              <%= form.label :joining_date,class: "form-label"%>
+              <%= form.date_field :joining_date , class: "join" %>
+              <% @user.errors.full_messages_for(:joining_date).each do |message| %>
+              <div> <%= message %> </div>
+              <% end %>
+            </div>
+
+            <%= form.submit "Create Employee", class: "btn btn-success btn-lg mb-1",id: 'employee' %>
+
+            <div style = "color:red"> <%= flash[:not_created] %> </div>
+
+            <% end %>
+            <%= button_to "Home", home_path, method: :get, class:  "btn btn-success btn-lg mb-4 ", id: 'home' %>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

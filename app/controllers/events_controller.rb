@@ -1,5 +1,6 @@
-class EventsController < ApplicationController
+# frozen_string_literal: true
 
+class EventsController < ApplicationController
   def index
     @events = Event.all
   end
@@ -17,7 +18,7 @@ class EventsController < ApplicationController
     if @event.save
       redirect_to event_path(@event)
     else
-      render 'new'
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -30,7 +31,7 @@ class EventsController < ApplicationController
     if @event.update(event_params)
       redirect_to events_show_path(@event)
     else
-      render 'edit'
+      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -41,6 +42,7 @@ class EventsController < ApplicationController
   end
 
   private
+
   def event_params
     params.require(:event).permit(:name, :date, :description)
   end

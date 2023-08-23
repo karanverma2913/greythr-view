@@ -1,56 +1,105 @@
 <style>
   body {
-    background-color: lightblue;
+    background-color: lightcyan;
   }
   .navbar {
-  background-color: #3498DB;
-  color: #FFFFFF;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
-}
-.navbar-title {
-  font-size: 24px;
-  margin: 0;
-}
-.navbar-buttons {
-  display: flex;
-  gap: 10px;
-}
-.navbar-button {
-  background-color: #2ECC71;
-  color: #FFFFFF;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 4px;
-  text-decoration: none;
-  cursor: pointer;
-}
-.navbar-button:hover {
-  background-color: #27AE60;
-}
+    background-color: #343a40;
+    color: #FFFFFF;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+  }
+  .navbar-title {
+    font-size: 24px;
+    margin: 0;
+    font-size: 35px;
+  }
+  .navbar-buttons {
+    display: flex;
+    gap: 10px;
+  }
+  #btn {
+    padding-left: 1rem!important;
+    padding-right: 1rem!important;
+  }
+
+    #emp {
+      margin-top: 50px;
+      text-align: center;
+      font-size: 25px;
+    }
+    span {
+      font-weight: bold;
+    }
 </style>
 <nav class="navbar">
-<div style = "color:Red"> <%= flash[:notice] %> </div>
-<h1 class="navbar-title">Home</h1>
-<% if @current_user.type == 'Hr' %>
-<div class="navbar-buttons">
-  <%= button_to "All Employees",users_path, method: :get, class: 'navbar-button' %>
-  <%= button_to "All Leave Request",all_leave_request_path, method: :get, class: 'navbar-button' %>
-  <%= button_to "All Events", events_path, method: :get, class: 'navbar-button' %>
-  <%= button_to "All Holidays",holidays_path, method: :get, class: 'navbar-button' %>
-  <%= button_to "Log_out","/logout",method: :delete , class: 'navbar-button'%>
+  <div style = "color:Red"> <%= flash[:notice] %> </div>
+  <h1 class="navbar-title", style="position: absolute;">Home</h1>
+
+  <% if @current_user.type == 'Hr' %>
+
+  <div class="navbar-buttons">
+    <%= button_to "Register Employee",new_user_path, method: :get, class: "btn btn-outline-light btn-lg px-5", id: 'btn' %>
+    <%= button_to "Events", events_path, method: :get, class: "btn btn-outline-light btn-lg px-5", id: 'btn' %>
+    <%= button_to "Holidays",holidays_path, method: :get, class: "btn btn-outline-light btn-lg px-5", id: 'btn' %>
+    <%= button_to "Leave Requests",all_leave_request_path, method: :get, class: "btn btn-outline-light btn-lg px-5", id: 'btn' %>
+    <%= button_to "Log out","/logout",method: :delete , class: "btn btn-outline-light btn-lg px-5", id: 'btn'%>
   </div>
-  </nav>
 
+  <% elsif @current_user.type == 'Employee' %>
+
+  <div class="navbar-buttons">
+    <%= button_to "Apply Leave", new_leave_request_path, method: :get, class: "btn btn-outline-light btn-lg px-5", id: 'btn' %>
+    <%= button_to "Leave History", history_path, method: :get, class: "btn btn-outline-light btn-lg px-5", id: 'btn' %>
+    <%= button_to "Holidays",holidays_path, method: :get, class: "btn btn-outline-light btn-lg px-5", id: 'btn' %>
+    <%= button_to "Events",events_path, method: :get, class: "btn btn-outline-light btn-lg px-5", id: 'btn' %>
+    <%= button_to "Change Password", edit_user_path(@current_user), method: :get, class: "btn btn-outline-light btn-lg px-5", id: 'btn' %>
+    <%= button_to "Log out","/logout",method: :delete, class: "btn btn-outline-light btn-lg px-5", id: 'btn' %>
+  </div>
+
+  <% end %>
+
+</nav>
+<% if @current_user.type == 'Hr' %>
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Joining</th>
+      <th scope="col">Role</th>
+      <th scope="col">Salary</th>
+      <th scope="col">Balance</th>
+      <th scope="col">Type</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+    <tr>
+      <td scope="row"><%= user.id %></td>
+      <td><%= user.name %></td>
+      <td><%= user.email %></td>
+      <td><%= user.joining_date %></td>
+      <td><%= user.role %></td>
+      <td><%= user.salary %></td>
+      <td><%= user.balance %></td>
+      <td><%= user.type %></td>
+      <td><%= link_to "View", user_path(user) %> </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
 <% elsif @current_user.type == 'Employee' %>
-
-  <%= button_to "Status",status_path, method: :get %>
-  <%= button_to "Create Leave Request", new_leave_request_path, method: :get %>
-  <%= button_to "Leave History", history_path, method: :get %>
-  <%= button_to "All Holidays",holidays_path, method: :get %>
-  <%= button_to "All Events",events_path, method: :get %>
-  <%= button_to "Log_out","/logout",method: :delete %>
-
+<div id='emp'>
+  <span> Name :- </span><%= @current_user.name %> <br>
+  <span> Email :- </span><%= @current_user.email %> <br>
+  <span> Password :- </span><%= @current_user.password %> <br>
+  <span> Join Date :- </span><%= @current_user.joining_date %> <br>
+  <span> Role :- </span><%= @current_user.role %> <br>
+  <span> Salary :- </span><%= @current_user.salary %> <br>
+  <span> Leave Balance :- </span><%= @current_user.balance %> <br>
+</div>
 <% end %>

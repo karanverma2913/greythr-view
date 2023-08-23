@@ -1,31 +1,86 @@
-<div style = "color:red"> <%= flash[:not_created] %> </div>
-<h1>LeaveRequest#new</h1>
+<head>
+  <style>
+    @media (min-width: 1025px) {
+      .h-custom {
+        height: 100vh !important;
+      }
+    }
 
-<%= form_with model: @leave_request, url: "/leave_request", method: :post do |form| %>
-  <%= form.label :start_date %>
-  <%= form.date_field :start_date %> <br><br>
-  <% @leave_request.errors.full_messages_for(:start_date).each do |message| %>
-      <div><%= message %></div>
-  <% end %>
+    #apply_leave {
+      position: absolute;
+      right: 120px;
+    }
 
-  <%= form.label :end_date %>
-  <%= form.date_field :end_date %> <br><br>
-  <% @leave_request.errors.full_messages_for(:end_date).each do |message| %>
-      <div> <%= message %> <div>
-  <% end %>
+    #home {
+      position: absolute;
+      left: 130px;
+    }
 
-  <%= form.label :leave_type %>
-  <%= form.select :leave_type, ['PL', 'CL', 'SL'] %> <br><br>
-  <% @leave_request.errors.full_messages_for(:leave_type).each do |message| %>
-    <div> <%= message %> </div>
-  <% end %>
+    .join {
+      position: absolute;
+      margin-left: 80px;
+    }
 
-  <%= form.label :reason %>
-  <%= form.text_field :reason %> <br><br>
-  <% @leave_request.errors.full_messages_for(:reason).each do |message| %>
-    <div> <%= message %> </div>
-  <% end %>
+    #leave_request_name {
+      position: absolute;
+      left: 136px;
+    }
+  </style>
+</head>
+<section class="h-100 h-custom" style="background-color: #343a40;">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-lg-8 col-xl-6">
+        <div class="card rounded-3">
+          <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/img3.webp"
+          class="w-100" style="border-top-left-radius: .3rem; border-top-right-radius: .3rem;"
+          alt="Sample photo">
+          <div class="card-body p-4 p-md-5 mb-5">
+            <h3 class="mb-4 pb-3 pb-md-1 px-md-2">Apply Leave</h3>
 
-<%= form.submit "Apply Leave" %>
-<% end %>
-<%= button_to "Home",home_path, method: :get %>
+            <%= form_with model: @leave_request,url:"/leave_request",method: :post, class: "px-md-2" do |form| %>
+            <div class='input-group date mb-4' id='picker'>
+              <%= form.label :start_date, class: "form-label"%>
+              <%= form.date_field :start_date , class: "join" %>
+              <% @leave_request.errors.full_messages_for(:start_date).each do |message| %>
+              <div> <%= message %> </div>
+              <% end %>
+            </div>
+            <div class='input-group date mb-4' id='picker'>
+              <%= form.label :end_date, class: "form-label"%>
+              <%= form.date_field :end_date , class: "join" %>
+              <% @leave_request.errors.full_messages_for(:end_date).each do |message| %>
+              <div> <%= message %> </div>
+              <% end %>
+            </div>
+            <div class="form-outline">
+              <%= form.label :name, class: "form-label" %>
+              <%= form.select :name, ['PL', 'CL', 'SL'], class: "type" %>
+              <% @leave_request.errors.full_messages_for(:name).each do |message| %>
+              <div><%= message %></div>
+              <% end %>
+            </div>
+
+
+            <div class="form-outline mb-4">
+              <%= form.label :reason, class: "form-label" %>
+              <%= form.text_field :reason, class: "form-control" %>
+              <% @leave_request.errors.full_messages_for(:reason).each do |message| %>
+              <div><%= message %></div>
+              <% end %>
+            </div>
+
+
+            <%= form.submit "Apply Leave", class: "btn btn-success btn-lg mb-1",id: 'apply_leave' %>
+
+            <div style = "color:red"> <%= flash[:not_created] %> </div>
+
+            <% end %>
+            <%= button_to "Home", home_path, method: :get, class:  "btn btn-success btn-lg mb-4 ", id: 'home' %>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

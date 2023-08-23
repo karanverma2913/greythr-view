@@ -1,32 +1,43 @@
-<h1>History#index</h1>
 <head>
   <style>
-    table {
-      border: 1px solid black;
+    p {
+        color: #fff;
+        background-color: #343a40;
+        text-align: center;
+        padding: 15px;
+        margin-bottom: 0px;
+        font-size: 150%;
+        font-weight: bold;
     }
-    th {
-      border: 1px solid black;
-    }
-    td {
-      border: 1px solid black;
+    #home {
+      position: absolute;
+      top: 10px;
+      left: 15px;
+      padding-left: 1rem!important;
+      padding-right: 1rem!important;
     }
   </style>
 </head>
-<table style="border: 1px solid black;  ">
-  <thead>
+
+<p>History</p>
+<table class="table">
+  <thead class="thead-dark">
     <tr>
-      <th>start_date</th>
-      <th>end_date</th>
-      <th>leave_type</th>
-      <th>reason</th>
-      <th>status</th>
-      <th>days</th>
-      <th>Employee Id</th>
+      <th scope="col">ID</th>
+      <th scope="col">Start Date</th>
+      <th scope="col">End Date</th>
+      <th scope="col">Leave Type</th>
+      <th scope="col">Reason</th>
+      <th scope="col">Status</th>
+      <th scope="col">Days</th>
+      <th scope="col">Employee Id</th>
+      <th scope="col"></th>
     </tr>
   </thead>
   <tbody>
     <% @leave_request.each do |leave_request| %>
       <tr>
+        <td scope="row"><%= leave_request.id %></td>
         <td><%= leave_request.start_date %></td>
         <td><%= leave_request.end_date %></td>
         <td><%= leave_request.leave_type %></td>
@@ -38,4 +49,4 @@
     <% end %>
   </tbody>
 </table>
-<%= button_to "Home",home_path, method: :get %>
+<%= button_to "Home",home_path, method: :get, id: 'home', class: "btn btn-outline-light btn-lg px-5" %>

@@ -1,25 +1,73 @@
-<div style = "color:red"> <%= flash[:not_created] %> </div>
-<h1>Events#new</h1>
+<head>
+  <style>
+    @media (min-width: 1025px) {
+      .h-custom {
+        height: 100vh !important;
+      }
+    }
 
-<%= form_with model: @event, url: "/events", method: :post do |form| %>
-  <%= form.label :name %>
-  <%= form.text_field :name %> <br><br>
-  <% @event.errors.full_messages_for(:name).each do |message| %>
-      <div><%= message %></div>
-  <% end %>
+    #event {
+      position: absolute;
+      right: 120px;
+    }
 
-  <%= form.label :date %>
-  <%= form.date_field :date %> <br><br>
-  <% @event.errors.full_messages_for(:date).each do |message| %>
-      <div> <%= message %> <div>
-  <% end %>
+    #home {
+      position: absolute;
+      left: 130px;
+    }
 
-  <%= form.label :description %>
-  <%= form.text_area :description %> <br><br>
-  <% @event.errors.full_messages_for(:description).each do |message| %>
-    <div> <%= message %> </div>
-  <% end %>
+    .join {
+      position: absolute;
+      left: 10  0px;
+    }
+  </style>
+</head>
+<section class="h-100 h-custom" style="background-color: #343a40;">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-lg-8 col-xl-6">
+        <div class="card rounded-3">
+          <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/img3.webp"
+          class="w-100" style="border-top-left-radius: .3rem; border-top-right-radius: .3rem;"
+          alt="Sample photo">
+          <div class="card-body p-4 p-md-5 mb-5">
+            <h3 class="mb-4 pb-3 pb-md-1 px-md-2">Event Info</h3>
 
-  <%= form.submit "Create Event" %>
-<% end %>
-<%= button_to "Home",home_path, method: :get %>
+            <%= form_with model: @event,url:"/events",method: :post, class: "px-md-2" do |form| %>
+            <div class="form-outline">
+              <%= form.label :name,class: "form-label" %>
+              <%= form.text_field :name, class: "form-control" %>
+              <% @event.errors.full_messages_for(:name).each do |message| %>
+              <div><%= message %></div>
+              <% end %>
+            </div>
+
+
+            <div class="form-outline mb-4">
+              <%= form.label :description, class: "form-label" %>
+              <%= form.text_field :description, class: "form-control" %>
+              <% @event.errors.full_messages_for(:description).each do |message| %>
+              <div><%= message %></div>
+              <% end %>
+            </div>
+
+            <div class='input-group date mb-4' id='picker'>
+              <%= form.label :date, class: "form-label"%>
+              <%= form.date_field :date , class: "join" %>
+              <% @event.errors.full_messages_for(:date).each do |message| %>
+              <div> <%= message %> </div>
+              <% end %>
+            </div>
+
+            <%= form.submit "Create Event", class: "btn btn-success btn-lg mb-1",id: 'event' %>
+
+            <div style = "color:red"> <%= flash[:not_created] %> </div>
+            <% end %>
+            <%= button_to "Home", home_path, method: :get, class:  "btn btn-success btn-lg mb-4 ", id: 'home' %>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

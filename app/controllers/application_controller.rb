@@ -2,6 +2,13 @@ class ApplicationController < ActionController::Base
   include JsonWebToken
   before_action :authenticate_user, except: [:login]
 
+  # rescue_from CanCan::AccessDenied do |ex|
+  #   render json: {message: ex}
+  # end
+  # def current_user
+  #   @current_user
+  # end
+
   def login
     @user = User.find_by(email: params[:email], password: params[:password])
     raise if @user.nil?

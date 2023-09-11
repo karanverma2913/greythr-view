@@ -16,4 +16,14 @@ class User < ApplicationRecord
                               message: '%<value>s not a valid email !!!' },
                     exclusion: { in: %w[hr@gmail.com],
                                  message: '%<value>s is reserved.' }
+
+
+  # def is_hr?
+  #   type == 'Hr'
+  # end
+
+  # def is_employee?
+  #   type == 'Employee'
+  # end
+
 end

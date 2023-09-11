@@ -2,11 +2,7 @@
 
 class UsersController < ApplicationController
   before_action :authenticate_user, except: :welcome
-
-  def index
-    @users = User.all
-  end
-
+  # load_and_authorize_resource except: [:welcome, :home]
   def show
     @user = User.find(params[:id])
   end

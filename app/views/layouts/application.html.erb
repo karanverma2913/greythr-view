@@ -13,10 +13,16 @@
     body {
       background-color: lightcyan;
     }
+
+    #notice {
+      position: absolute;
+
+    }
     </style>
   </head>
 
   <body>
+      <p class="notice", id= "notice"><%= notice %></p>
     <%= yield %>
   </body>
 </html>

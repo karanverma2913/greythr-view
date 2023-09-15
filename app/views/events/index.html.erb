@@ -20,7 +20,7 @@
       top: 10px;
       left: 15px;
     }
-    #home, {
+    #home, #event{
       padding-left: 1rem!important;
       padding-right: 1rem!important;
     }
@@ -46,7 +46,7 @@
         <td><%= event.name %></td>
         <td><%= event.date %></td>
         <td><%= event.description %></td>
-        <% if  @current_user.type == 'Hr' %>
+        <% if  current_user.type == 'Hr' %>
         <td><%= link_to "View", event_path(event) %> </td>
         <% end %>
       </tr>
@@ -54,7 +54,7 @@
   </tbody>
 </table>
 
-<%= button_to "Create event", new_event_path, method: :get, class: "btn btn-outline-light btn-lg px-5",id: 'event' if @current_user.type == 'Hr' %>
-<%= button_to "Home", home_path, method: :get, class: "btn btn-outline-light btn-lg px-5",id: 'home' %>
+<%= button_to "Create event", new_event_path, method: :get, class: "btn btn-outline-light btn-lg px-5",id: 'event' if current_user.type == 'Hr' %>
+<%= button_to "Home", root_path, method: :get, class: "btn btn-outline-light btn-lg px-5",id: 'home' %>
 
 <div style = "color:Green"> <%= flash[:created] %> </div>

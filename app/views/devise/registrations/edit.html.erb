@@ -1,0 +1,75 @@
+<head>
+  <style>
+    @media (min-width: 1025px) {
+      .h-custom {
+        height: 100vh !important;
+      }
+    }
+
+    #event {
+      position: absolute;
+      right: 120px;
+    }
+
+    #home {
+      position: absolute;
+      left: 130px;
+    }
+
+    .join {
+      position: absolute;
+      left: 50px;
+    }
+  </style>
+</head>
+<section class="h-100 h-custom" style="background-color: #343a40;">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-lg-8 col-xl-6">
+        <div class="card rounded-3">
+          <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/img3.webp"
+          class="w-100" style="border-top-left-radius: .3rem; border-top-right-radius: .3rem;"
+          alt="Sample photo">
+          <div class="card-body p-4 p-md-5 mb-5">
+            <h3 class="mb-4 pb-3 pb-md-1 px-md-2">Edit Your Details</h3>
+
+
+
+
+
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+  <%= render "devise/shared/error_messages", resource: resource, class: "px-md-2"%>
+
+  <div class="form-outline mb-4">
+    <%= f.label :email, class: "form-label" %>
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
+  </div>
+  <div class="form-outline mb-4">
+    <%= f.label :password, class: "form-label" %>
+    <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
+  </div>
+
+  <div class="form-outline mb-4">
+    <%= f.label :password_confirmation, class: "form-label" %>
+    <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
+  </div>
+
+  <div class="form-outline mb-4">
+    <%= f.label :current_password, class: "form-label" %>
+    <%= f.password_field :current_password, autocomplete: "current-password", class: "form-control" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Update", class: "btn btn-success btn-lg mb-1",id: 'event' %>
+  </div>
+<% end %>
+    <%= button_to "Home", root_path, method: :get, class:  "btn btn-success btn-lg mb-4 ", id: 'home' %>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

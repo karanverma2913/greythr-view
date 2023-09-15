@@ -14,17 +14,17 @@ class LeaveRequestsController < ApplicationController
   end
 
   def create
-    last_request = @current_user.leave_requests.last
+    last_request = current_user.leave_requests.last
     raise unless last_request.nil? || last_request.status == 'approved' || last_request.status == 'rejected'
 
-    @leave_request = @current_user.leave_requests.new(leave_params)
+    @leave_request = current_user.leave_requests.new(leave_params)
     dif = @leave_request.end_date - @leave_request.start_date
-    raise if @current_user.balance <= dif.to_i + 1
+    raise if current_user.balance <= dif.to_i + 1
 
     @leave_request.days = dif.to_i + 1
     @leave_request.status = 'pending'
-    @current_user.balance = @current_user.balance - @leave_request.days
-    if @leave_request.save && @current_user.save
+    current_user.balance = current_user.balance - @leave_request.days
+    if @leave_request.save && current_user.save
       flash[:notice] = 'Applied Successfully !'
       redirect_to history_path
     else
@@ -32,14 +32,14 @@ class LeaveRequestsController < ApplicationController
     end
   rescue StandardError
     flash[:notice] = 'Not enough balance or Last request is pending !'
-    redirect_to home_path
+    redirect_to root_path
   end
 
   def destroy
-    last_request = @current_user.leave_requests.last
+    last_request = current_user.leave_requests.last
     raise if last_request.nil? || last_request.status != 'pending'
 
-    @current_user.update(balance: @current_user.balance + last_request.days)
+    current_user.update(balance: current_user.balance + last_request.days)
     last_request.destroy!
     render json: { message: 'Leave Request Deleted !' }, status: :ok
   rescue StandardError
@@ -75,7 +75,7 @@ class LeaveRequestsController < ApplicationController
   end
 
   def history
-    @leave_request = @current_user.leave_requests.all
+    @leave_request = current_user.leave_requests.all
   end
 
   private

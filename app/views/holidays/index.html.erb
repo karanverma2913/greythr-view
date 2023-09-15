@@ -44,7 +44,7 @@
         <td scope="row"><%= holiday.id %></td>
         <td><%= holiday.name %></td>
         <td><%= holiday.date %></td>
-        <% if  @current_user.type == 'Hr' %>
+        <% if  current_user.type == 'Hr' %>
         <td><%= link_to "View", holiday_path(holiday) %></td>
         <% end %>
       </tr>
@@ -52,7 +52,7 @@
   </tbody>
 </table>
 
-<%= button_to "Create Holidays", new_holiday_path, method: :get, class: "btn btn-outline-light btn-lg px-5", id: 'holiday' if @current_user.type == 'Hr' %>
-<%= button_to "Home",home_path, method: :get, class: "btn btn-outline-light btn-lg px-5", id: 'home' %>
+<%= button_to "Create Holidays", new_holiday_path, method: :get, class: "btn btn-outline-light btn-lg px-5", id: 'holiday' if current_user.type == 'Hr' %>
+<%= button_to "Home",root_path, method: :get, class: "btn btn-outline-light btn-lg px-5", id: 'home' %>
 
 <div style = "color:Green"> <%= flash[:created] %> </div>

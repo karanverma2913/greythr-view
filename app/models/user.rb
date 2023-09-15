@@ -1,29 +1,23 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable
   has_many :leave_requests, dependent: :destroy
-  validates :name, :email, :password, :salary, :role, presence: true
+  # validates :name, :email, :password, :salary, :role, presence: true
 
-  # validates :joining_date, format: { with: /\d{2}\/\d{2}\/\d{4}/, message: "must be in the following format: mm/dd/yyyy" }
+  # # validates :joining_date, format: { with: /\d{2}\/\d{2}\/\d{4}/, message: "must be in the following format: mm/dd/yyyy" }
 
-  validates :name, format: { with: /\A[a-zA-Z]+(?: [a-zA-Z]+)?\z/,
-                             message: 'should be in characters only' }
+  # validates :name, format: { with: /\A[a-zA-Z]+(?: [a-zA-Z]+)?\z/,
+  #                            message: 'should be in characters only' }
 
-  validates :password, length: { in: 8..15, message: 'must be between 8 to 15 characters' }
+  # validates :password, length: { in: 8..15, message: 'must be between 8 to 15 characters' }
 
-  validates :email, uniqueness: { message: 'is already exist' },
-                    format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i,
-                              message: '%<value>s not a valid email !!!' },
-                    exclusion: { in: %w[hr@gmail.com],
-                                 message: '%<value>s is reserved.' }
-
-
-  # def is_hr?
-  #   type == 'Hr'
-  # end
-
-  # def is_employee?
-  #   type == 'Employee'
-  # end
-
+  # validates :email, uniqueness: { message: 'is already exist' },
+  #                   format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i,
+  #                             message: '%<value>s not a valid email !!!' },
+  #                   exclusion: { in: %w[hr@gmail.com],
+  #                                message: '%<value>s is reserved.' }
 end

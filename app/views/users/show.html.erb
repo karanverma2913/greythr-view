@@ -1,6 +1,5 @@
 <head>
   <style>
-
     p {
       color: #fff;
       background-color: #343a40;
@@ -10,7 +9,6 @@
       font-size: 150%;
       font-weight: bold;
     }
-
     .delete {
       position: absolute;
       top: 12px;
@@ -23,7 +21,6 @@
       text-decoration: none;
       cursor: pointer;
     }
-
     .home {
       position: absolute;
       top: 12px;
@@ -36,40 +33,34 @@
       text-decoration: none;
       cursor: pointer;
     }
-
     .home:hover, .delete:hover {
       background-color: #27AE60;
       transition-duration: 0.5s;
     }
-
     #delete {
       position: absolute;
       top: 10px;
       right: 15px;
-    }
 
+    }
     #home {
       position: absolute;
       top: 10px;
       left: 15px;
     }
-
     #home, #delete {
       padding-left: 1rem!important;
       padding-right: 1rem!important;
     }
-
     div {
       margin-top: 50px;
+      font-size: 25px;
     }
-
     span {
       font-weight: bold;
     }
-
   </style>
 </head>
-
 <p>Status</p>
 <div align="center">
   <span> Name :- </span><%= @user.name %> <br>
@@ -77,7 +68,7 @@
   <span> Join Date :- </span><%= @user.joining_date %> <br>
   <span> Role :- </span><%= @user.role %> <br>
   <span> Salary :- </span><%= @user.salary %> <br>
-  <span> Balance :- </span><%= @user.balance %> <br>
+  <span> Leave Balance :- </span><%= @user.balance %> <br>
 </div>
-<%= button_to "Delete", user_path(@user), method: :delete, id: 'delete', class: "btn btn-outline-light btn-lg px-5" %> <br>
-<%= button_to "Home",home_path, method: :get, id: 'home', class: "btn btn-outline-light btn-lg px-5" %>
+<%= button_to "Delete", user_path(@user), method: :delete, id: 'delete', class: "btn btn-outline-light btn-lg px-5" unless @user.type == 'Hr' %> <br>
+<%= button_to "Home",root_path, method: :get, id: 'home', class: "btn btn-outline-light btn-lg px-5" %>

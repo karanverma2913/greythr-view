@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  root 'users#welcome'
+  devise_for :users
+  root to: 'users#home'
 
-  get '/home', to: 'users#home'
-  post '/login', to: 'application#login'
+  post '/create_employee', to: 'users#create'
   delete '/logout', to: 'application#logout'
 
   get 'approve/:id', to: 'leave_requests#approve_request'

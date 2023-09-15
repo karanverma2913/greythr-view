@@ -1,9 +1,85 @@
-<h1>Events#show</h1>
+<head>
+  <style>
+    .navbar-buttons {
+      display: flex;
+      gap: 10px;
+    }
+    #btn {
+      padding-left: 1rem!important;
+      padding-right: 1rem!important;
+    }
+    p {
+      color: #fff;
+      background-color: #343a40;
+      text-align: center;
+      padding: 15px;
+      margin-bottom: 0px;
+      font-size: 150%;
+      font-weight: bold;
+    }
+    .delete {
+      position: absolute;
+      top: 12px;
+      right: 15px;
+      background-color: black;
+      color: #FFFFFF;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 4px;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .home {
+      position: absolute;
+      top: 12px;
+      left: 15px;
+      background-color: black;
+      color: #FFFFFF;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 4px;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .home:hover, .delete:hover {
+      background-color: #27AE60;
+      transition-duration: 0.5s;
+    }
+    #delete {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+    }
+    #edit {
+      position: absolute;
+      top: 10px;
+      right: 120px;
+    }
+    #home {
+      position: absolute;
+      top: 10px;
+      left: 15px;
+    }
+    #home, #delete, #edit {
+      padding-left: 1rem!important;
+      padding-right: 1rem!important;
+    }
+    div {
+      margin-top: 50px;
+      font-size: 25px;
+    }
+    span {
+      font-weight: bold;
+    }
+  </style>
+</head>
+<p>Events</p>
+<div align="center">
+  <span> Name :- </span><%= @event.name %> <br>
+  <span> Date :- </span><%= @event.date %> <br>
+  <span> Description :- </span><%= @event.description %> <br><br>
+</div>
+<%= button_to "Delete", edit_event_path(@event), method: :delete, id: 'delete', class: "btn btn-outline-light btn-lg px-5" %> <br>
+<%= button_to "Edit", edit_event_path(@event), id: 'edit', class: "btn btn-outline-light btn-lg px-5" %> <br>
+<%= button_to "Home",root_path, method: :get, id: 'home', class: "btn btn-outline-light btn-lg px-5" %>
 
-<span> Name :- </span><%= @event.name %> <br>
-<span> Date :- </span><%= @event.date %> <br>
-<span> Description :- </span><%= @event.description %> <br><br>
-
-<%= button_to "Edit", edit_event_path(@event) %> <br>
-<%= button_to "Delete", event_path(@event), method: :delete %> <br>
-<%= button_to "Home", home_path, method: :get %>

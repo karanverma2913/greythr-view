@@ -1,13 +1,14 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
-  before_action :authenticate_user, except: :welcome
-  # load_and_authorize_resource except: [:welcome, :home]
+  before_action :authenticate_user!, expect: [:create]
+  def index
+    @users = User.all
+  end
+
   def show
     @user = User.find(params[:id])
   end
-
-  def welcome; end
 
   def home
     @users = User.all
@@ -19,20 +20,17 @@ class UsersController < ApplicationController
 
   def create
     @user = Employee.new(user_params)
+    @user.balance = set_leave_balance(@user)
     if @user.save
       flash[:created] = 'User Created'
-      redirect_to home_path
+      redirect_to root_path
     else
       render :new, status: :unprocessable_entity
     end
   end
 
-  def status
-    @current_user
-  end
-
   def edit
-    @employee = @current_user
+    @employee = current_user
   end
 
   def update
@@ -43,7 +41,7 @@ class UsersController < ApplicationController
   def destroy
     @user = User.find(params[:id])
     @user.destroy
-    redirect_to home_path
+    redirect_to root_path
   end
 
   private
@@ -54,5 +52,15 @@ class UsersController < ApplicationController
 
   def update_params
     params.permit(:name, :password)
+  end
+
+  def set_leave_balance(object)
+    month = 12 - object.joining_date.strftime('%m').to_i
+    if month.positive?
+      month += 1
+      1.5 * month
+    else
+      1.5
+    end
   end
 end

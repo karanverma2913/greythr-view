@@ -1,5 +1,13 @@
 <head>
   <style>
+    .navbar-buttons {
+      display: flex;
+      gap: 10px;
+    }
+    #btn {
+      padding-left: 1rem!important;
+      padding-right: 1rem!important;
+    }
     p {
       color: #fff;
       background-color: #343a40;
@@ -41,38 +49,35 @@
       position: absolute;
       top: 10px;
       right: 15px;
-
     }
     #edit {
       position: absolute;
       top: 10px;
-      right: 100px;
-
+      right: 120px;
     }
     #home {
       position: absolute;
       top: 10px;
       left: 15px;
     }
-    #home, #delete {
+    #home, #delete, #edit {
       padding-left: 1rem!important;
       padding-right: 1rem!important;
     }
     div {
       margin-top: 50px;
+      font-size: 25px;
     }
     span {
       font-weight: bold;
     }
   </style>
 </head>
-<p>Holiday</p>
+<p>Holidays</p>
 <div align="center">
   <span> Name :- </span><%= @holiday.name %> <br>
-  <span> Email :- </span><%= @holiday.date %> <br>
+  <span> Date :- </span><%= @holiday.date %> <br>
 </div>
-<%= button_to "Edit", edit_holiday_path(@holiday), method: :delete, id: 'edit', class: "btn btn-outline-light btn-lg px-5" %>
-<%= button_to "Delete", user_path(@holiday), method: :delete, id: 'delete', class: "btn btn-outline-light btn-lg px-5" %>
-<%= button_to "Home",home_path, method: :get, id: 'home', class: "btn btn-outline-light btn-lg px-5" %>
-
-
+<%= button_to "Delete", edit_event_path(@holiday), method: :delete, id: 'delete', class: "btn btn-outline-light btn-lg px-5" %> <br>
+<%= button_to "Edit", edit_event_path(@holiday), id: 'edit', class: "btn btn-outline-light btn-lg px-5" %> <br>
+<%= button_to "Home",root_path, method: :get, id: 'home', class: "btn btn-outline-light btn-lg px-5" %>

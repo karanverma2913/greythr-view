@@ -28,7 +28,7 @@ Things you may want to cover:
     if @user.nil?
       raise
     elsif @user.type == 'Employee' && @user.type == 'Hr'
-      redirect_to home_path
+      redirect_to root_path
     end
   rescue StandardError
     flash[:notice] = 'You are not authorized(Login First)'

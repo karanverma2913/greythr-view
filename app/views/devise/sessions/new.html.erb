@@ -24,11 +24,13 @@
     #alert {
       color: red;
       position: absolute;
-      top: 20px;
-      right: 105px;
+      top: -50px;
+      left: 105px;
+      margin: 0px;
     }
   </style>
 </head>
+<div id="flash"><%= flash[:notice] %></div>
 <section class="vh-100 gradient-custom">
   <div class="container py-5 h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
@@ -41,7 +43,6 @@
               <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
               <p class="text-white-50 mb6", style="margin-top: 30px;">Please enter your login and password!</p>
 
-              <div id="flash"><%= flash[:notice] %></div>
               <p class="alert", id= "alert"><%= alert %></p>
               <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
                 <div class="form-outline form-white mb-4">

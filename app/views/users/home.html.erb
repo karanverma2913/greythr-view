@@ -79,7 +79,6 @@
       <th scope="col">Role</th>
       <th scope="col">Salary</th>
       <th scope="col">Balance</th>
-      <th scope="col">Type</th>
       <th scope="col"></th>
     </tr>
   </thead>
@@ -93,7 +92,6 @@
       <td><%= user.role %></td>
       <td><%= user.salary %></td>
       <td><%= user.balance %></td>
-      <td><%= user.type %></td>
       <td><%= link_to "View", user_path(user) %> </td>
     </tr>
     <% end %>
@@ -103,7 +101,6 @@
 <div id='emp'>
   <span> Name :- </span><%= current_user.name %> <br>
   <span> Email :- </span><%= current_user.email %> <br>
-  <span> Password :- </span><%= current_user.password %> <br>
   <span> Join Date :- </span><%= current_user.joining_date %> <br>
   <span> Role :- </span><%= current_user.role %> <br>
   <span> Salary :- </span><%= current_user.salary %> <br>

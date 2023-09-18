@@ -20,8 +20,8 @@ class UsersController < ApplicationController
 
   def create
     @user = Employee.new(user_params)
-    @user.balance = set_leave_balance(@user)
     if @user.save
+      set_leave_balance(@user)
       flash[:created] = 'User Created'
       redirect_to root_path
     else
@@ -54,13 +54,16 @@ class UsersController < ApplicationController
     params.permit(:name, :password)
   end
 
-  def set_leave_balance(object)
-    month = 12 - object.joining_date.strftime('%m').to_i
+  def set_leave_balance(user)
+    month = 12 - user.joining_date.strftime('%m').to_i
     if month.positive?
       month += 1
       1.5 * month
+      user.update(balance: month)
     else
       1.5
+      user.update(balance: month)
     end
   end
+
 end

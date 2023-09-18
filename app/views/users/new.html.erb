@@ -35,52 +35,55 @@
             <h3 class="mb-4 pb-3 pb-md-1 px-md-2">Registration Info</h3>
 
             <%= form_with model: @user,url:"/create_employee",method: :post, class: "px-md-2" do |form| %>
+
+            <% @user.errors.full_messages_for(:name).each do |message| %>
+                <div><%= message %></div>
+            <% end %>
+            <% @user.errors.full_messages_for(:email).each do |message| %>
+                <div><%= message %></div>
+            <% end %>
+            <% @user.errors.full_messages_for(:password).each do |message| %>
+                <div><%= message %></div>
+            <% end %>
+            <% @user.errors.full_messages_for(:role).each do |message| %>
+                <div><%= message %></div>
+            <% end %>
+            <% @user.errors.full_messages_for(:salary).each do |message| %>
+                <div> <%= message %> </div>
+            <% end %>
+            <% @user.errors.full_messages_for(:joining_date).each do |message| %>
+                <div> <%= message %> </div>
+            <% end %>
+
+
             <div class="form-outline">
               <%= form.label :name,class: "form-label" %>
               <%= form.text_field :name, class: "form-control" %>
-              <% @user.errors.full_messages_for(:name).each do |message| %>
-              <div><%= message %></div>
-              <% end %>
             </div>
 
             <div class="form-outline">
               <%= form.label :email, class: "form-label" %>
               <%= form.email_field :email,  class: "form-control" %>
-              <% @user.errors.full_messages_for(:email).each do |message| %>
-              <div><%= message %></div>
-              <% end %>
             </div>
 
             <div class="form-outline">
               <%= form.label :password,class: "form-label" %>
               <%= form.text_field :password, class: "form-control" %>
-              <% @user.errors.full_messages_for(:password).each do |message| %>
-              <div><%= message %></div>
-              <% end %>
             </div>
 
             <div class="form-outline">
               <%= form.label :role, class: "form-label" %>
               <%= form.text_field :role, class: "form-control" %>
-              <% @user.errors.full_messages_for(:role).each do |message| %>
-              <div><%= message %></div>
-              <% end %>
             </div>
 
             <div class="form-outline mb-4">
               <%= form.label :salary, class: "form-label" %>
               <%= form.text_field :salary, class: "form-control" %>
-              <% @user.errors.full_messages_for(:salary).each do |message| %>
-              <div> <%= message %> </div>
-              <% end %>
             </div>
 
             <div class='input-group date mb-4' id='picker'>
               <%= form.label :joining_date,class: "form-label"%>
               <%= form.date_field :joining_date , class: "join" %>
-              <% @user.errors.full_messages_for(:joining_date).each do |message| %>
-              <div> <%= message %> </div>
-              <% end %>
             </div>
 
             <%= form.submit "Create Employee", class: "btn btn-success btn-lg mb-1",id: 'employee' %>

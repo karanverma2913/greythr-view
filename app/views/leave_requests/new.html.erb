@@ -25,6 +25,11 @@
       position: absolute;
       left: 136px;
     }
+    #flash {
+      position: absolute;
+      top: 215px;
+      left: 55px;
+    }
   </style>
 </head>
 <section class="h-100 h-custom" style="background-color: #343a40;">
@@ -54,9 +59,9 @@
               <% end %>
             </div>
             <div class="form-outline">
-              <%= form.label :name, class: "form-label" %>
-              <%= form.select :name, ['PL', 'CL', 'SL'], class: "type" %>
-              <% @leave_request.errors.full_messages_for(:name).each do |message| %>
+              <%= form.label :type, class: "form-label" %>
+              <%= form.select :leave_type, ['PL', 'CL', 'SL'], class: "type" %>
+              <% @leave_request.errors.full_messages_for(:leave_type).each do |message| %>
               <div><%= message %></div>
               <% end %>
             </div>
@@ -73,11 +78,11 @@
 
             <%= form.submit "Apply Leave", class: "btn btn-success btn-lg mb-1",id: 'apply_leave' %>
 
-            <div style = "color:red"> <%= flash[:not_created] %> </div>
 
             <% end %>
             <%= button_to "Home", root_path, method: :get, class:  "btn btn-success btn-lg mb-4 ", id: 'home' %>
 
+            <div style = "color:red", id = 'flash'> <%= flash[:notice] %> </div>
           </div>
         </div>
       </div>

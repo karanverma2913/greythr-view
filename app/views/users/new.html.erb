@@ -20,6 +20,13 @@
       position: absolute;
       left: 100px;
     }
+
+    .errors_messages {
+      position: absolute;
+      right: -340px;
+      color: red;
+
+    }
   </style>
 </head>
 
@@ -35,7 +42,7 @@
             <h3 class="mb-4 pb-3 pb-md-1 px-md-2">Registration Info</h3>
 
             <%= form_with model: @user,url:"/create_employee",method: :post, class: "px-md-2" do |form| %>
-
+            <div class="errors_messages">
             <% @user.errors.full_messages_for(:name).each do |message| %>
                 <div><%= message %></div>
             <% end %>
@@ -54,6 +61,7 @@
             <% @user.errors.full_messages_for(:joining_date).each do |message| %>
                 <div> <%= message %> </div>
             <% end %>
+            </div>
 
 
             <div class="form-outline">

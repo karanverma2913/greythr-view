@@ -2,13 +2,12 @@
   <style>
     @media (min-width: 1025px) {
       .h-custom {
-        height: 115vh !important;
+        height: 150vh !important;
       }
     }
 
-    #employee {
-      position: absolute;
-      right: 120px;
+    #submit {
+      margin-left: 170px;
     }
 
     #home {
@@ -19,6 +18,11 @@
     .join {
       position: absolute;
       left: 100px;
+    }
+    #links{
+      align-items: center;
+      text-align: center;
+      padding-top: 20px;
     }
   </style>
 </head>
@@ -40,7 +44,7 @@
 
               <div class="form-outline">
                 <%= f.label :name, class: "form-label mt-1" %>
-                <%= f.email_field :name, class: "form-control" %>
+                <%= f.text_field :name, class: "form-control" %>
               </div>
 
               <div class="form-outline">
@@ -55,20 +59,20 @@
                 <% end %>
                 <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
               </div>
-
+<!--
               <div class="form-outline">
-                <%= f.label :password_confirmation, class: "form-label mt-1" %>
-                <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
-              </div>
+                <= f.label :password_confirmation, class: "form-label mt-1" %>
+                <= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
+              </div> -->
 
               <div class="form-outline">
                 <%= f.label :role, class: "form-label mt-1" %>
-                <%= f.email_field :role, class: "form-control" %>
+                <%= f.text_field :role, class: "form-control" %>
               </div>
 
               <div class="form-outline">
                 <%= f.label :salary, class: "form-label mt-1" %>
-                <%= f.email_field :salary, class: "form-control" %>
+                <%= f.text_field :salary, class: "form-control" %>
               </div>
 
               <div class='input-group date mb-4 mt-4' id='picker'>
@@ -77,10 +81,12 @@
               </div>
 
               <div class="actions">
-                <%= f.submit "Sign up", class: "btn btn-success btn-lg mb-1",id: 'employee' %>
+                <%= f.submit "Sign up", class: "btn btn-success btn-lg mb-1",id: 'submit' %>
               </div>
             <% end %>
-            <%= button_to 'Log-in',"/users/sign_in", class: "btn btn-success btn-lg mb-1", id: 'home' %>
+            <div id='links'>
+              <%= render "devise/shared/links" %>
+            </div>
         </div>
         </div>
       </div>

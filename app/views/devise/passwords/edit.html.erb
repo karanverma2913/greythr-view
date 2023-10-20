@@ -1,47 +1,17 @@
-<h2>Change your password</h2>
-
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
-  <%= f.hidden_field :reset_password_token %>
-
-  <div class="field">
-    <%= f.label :password, "New password" %><br />
-    <% if @minimum_password_length %>
-      <em>(<%= @minimum_password_length %> characters minimum)</em><br />
-    <% end %>
-    <%= f.password_field :password, autofocus: true, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation, "Confirm new password" %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Change my password" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
-
 <head>
   <style>
     @media (min-width: 1025px) {
       .h-custom {
-        height: 100vh !important;
+        height: 110vh !important;
       }
     }
 
     #event {
-      position: absolute;
-      right: 120px;
+      margin-left: 100px;
     }
-
-    #home {
-      position: absolute;
-      left: 130px;
+    #links {
+      padding-top: 10px;
     }
-
     .join {
       position: absolute;
       left: 50px;
@@ -57,32 +27,33 @@
           class="w-100" style="border-top-left-radius: .3rem; border-top-right-radius: .3rem;"
           alt="Sample photo">
           <div class="card-body p-4 p-md-5 mb-5">
-            <h3 class="mb-4 pb-3 pb-md-1 px-md-2">Edit Your Details</h3>
+            <h3 class="mb-4 pb-3 pb-md-1 px-md-2">Change Your Password</h3>
 
-            <%= form_with model: @employee, url:"/users",method: :put, class: "px-md-2" do |form| %>
-            <div class="form-outline mb-4">
-              <%= form.label :name, class: "form-label" %>
-              <%= form.text_field :name, class: "form-control" %>
-              <% @employee.errors.full_messages_for(:name).each do |message| %>
-              <div><%= message %></div>
-              <% end %>
-            </div>
+
+          <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put },class: "px-md-2") do |f| %>
+            <%= render "devise/shared/error_messages", resource: resource %>
+            <%= f.hidden_field :reset_password_token %>
 
             <div class="form-outline mb-4">
-              <%= form.label :password, class: "form-label" %>
-              <%= form.text_field :password, class: "form-control" %>
-              <% @employee.errors.full_messages_for(:password).each do |message| %>
-              <div><%= message %></div>
+              <%= f.label :password, "New password", class: "form-label" %><br />
+              <% if @minimum_password_length %>
+                <em>(<%= @minimum_password_length %> characters minimum)</em><br />
               <% end %>
+              <%= f.password_field :password, autofocus: true, autocomplete: "new-password",class: "form-control" %>
             </div>
+<!--
+            <div class="form-outline mb-4">
+              <s= f.label :password_confirmation, "Confirm new password", class: 'form-label' %><br />
+              <s= f.password_field :password_confirmation, autocomplete: "new-password", class: 'form-control' %>
+            </div> -->
 
-
-            <%= form.submit "Update", class: "btn btn-success btn-lg mb-1",id: 'event' %>
-
-            <div style = "color:red"> <%= flash[:not_created] %> </div>
-            <% end %>
-            <%= button_to "Home", root_path, method: :get, class:  "btn btn-success btn-lg mb-4 ", id: 'home' %>
-
+            <div class="actions">
+              <%= f.submit "Change my password", class: "btn btn-success btn-lg mb-1", id: 'event' %>
+            </div>
+          <% end %>
+          <div align="center" id="links">
+            <%= render "devise/shared/links" %>
+          </div>
           </div>
         </div>
       </div>

@@ -60,7 +60,7 @@
             </div>
             <div class="form-outline">
               <%= form.label :type, class: "form-label" %>
-              <%= form.select :leave_type, ['PL', 'CL', 'SL'], class: "type" %>
+              <%= form.select :leave_type, ['CL', 'PL', 'SL'], class: "type" %>
               <% @leave_request.errors.full_messages_for(:leave_type).each do |message| %>
               <div><%= message %></div>
               <% end %>

@@ -7,10 +7,9 @@ class CreateUsers < ActiveRecord::Migration[7.0]
       t.string :email
       t.string :role
       t.date :joining_date
-      t.integer :salary
       t.float :balance
       t.string :type
-
+      t.integer :salary
       t.timestamps
     end
   end

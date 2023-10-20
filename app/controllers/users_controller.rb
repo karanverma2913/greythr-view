@@ -58,12 +58,7 @@ class UsersController < ApplicationController
     month = 12 - user.joining_date.strftime('%m').to_i
     if month.positive?
       month += 1
-      1.5 * month
-      user.update(balance: month)
-    else
-      1.5
-      user.update(balance: month)
     end
+    user.update(balance: month)
   end
-
 end

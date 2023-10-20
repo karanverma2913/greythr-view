@@ -22,6 +22,7 @@
     }
   </style>
 </head>
+
 <section class="h-100 h-custom" style="background-color: #343a40;">
   <div class="container py-5 h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
@@ -44,11 +45,11 @@
               <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
             </div>
 
-            <div class="form-outline mb-4">
-              <%= f.label :password_confirmation, class: "form-label" %>
-              <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
+<!--             <div class="form-outline mb-4">
+              <= f.label :password_confirmation, class: "form-label" %>
+              <= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
             </div>
-
+ -->
             <div class="form-outline mb-4">
               <%= f.label :current_password, class: "form-label" %>
               <%= f.password_field :current_password, autocomplete: "current-password", class: "form-control" %>

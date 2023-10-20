@@ -14,16 +14,21 @@ class LeaveRequestsController < ApplicationController
   end
 
   def create
-    if dif = check_request_criteria()
+    debugger
+    if (dif = check_request_criteria)
       @leave_request = current_user.leave_requests.new(leave_params)
-      @leave_request.days, @leave_request.status = dif.to_i + 1, 'pending'
-      current_user.balance -= @leave_request.days
-    end
-    if @leave_request && current_user
-      flash[:notice] = 'Applied Successfully !'
-      redirect_to history_path
+      balance = current_user.balance - dif.to_i + 1
+      @leave_request.days = dif.to_i + 1
+      if @leave_request
+        current_user.update_column(:balance, balance)
+        flash[:notice] = 'Applied Successfully !'
+        redirect_to history_path
+      else
+        render :new, status: :unprocessable_entity
+      end
     else
-      render :new, status: :unprocessable_entity
+      flash[:notice] = 'Not enough balance or enter correct date !'
+      redirect_to home_path
     end
   end
 
@@ -77,15 +82,21 @@ class LeaveRequestsController < ApplicationController
   end
 
   def check_request_criteria
-    debugger
-    last_request = current_user.leave_requests.last
-    raise if last_request.nil? || leave_params[:start_date] > last_request.end_date
-    (last_request.start_date .. last_request.end_date).cover?(leave_params[:start_date] || leave_params[:end_date])
-    dif = leave_params[:end_date].to_i - leave_params[:start_date].to_i
-    raise if current_user.balance < dif + 1
+    dif = Date.parse(leave_params[:end_date], '%Y-%m-%d').day - Date.parse(leave_params[:start_date], '%Y-%m-%d').day
+    raise if dif + 1 > current_user.balance
+    last_requests = current_user.leave_requests.where(created_at: Time.now.beginning_of_month..Time.now.end_of_month)
+    if last_requests.present?
+      flag = false
+      last_requests.each do |i|
+        if (i.start_date..i.end_date).cover?(Date.parse(leave_params[:start_date],'%Y-%m-%d')) || (i.start_date..i.end_date).cover?(Date.parse(leave_params[:end_date], '%Y-%m-%d'))
+          flag = true
+          break
+        end
+      end
+      raise if flag
+    end
     return dif
   rescue StandardError
-    flash[:notice] = 'Not enough balance or Last request is pending !'
     return false
   end
 end

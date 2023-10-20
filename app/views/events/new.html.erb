@@ -31,32 +31,31 @@
           class="w-100" style="border-top-left-radius: .3rem; border-top-right-radius: .3rem;"
           alt="Sample photo">
           <div class="card-body p-4 p-md-5 mb-5">
-            <h3 class="mb-4 pb-3 pb-md-1 px-md-2">Event Info</h3>
-
-            <%= form_with model: @event,url:"/events",method: :post, class: "px-md-2" do |form| %>
-            <div class="form-outline">
-              <%= form.label :name,class: "form-label" %>
-              <%= form.text_field :name, class: "form-control" %>
+            <h3 class="mb-2 pb-3 pb-md-1 px-md-2">Event Info</h3>
+            <%= form_with model: @event,url:"/events",method: :post, class: "px-md-1" do |form| %>
               <% @event.errors.full_messages_for(:name).each do |message| %>
               <div><%= message %></div>
               <% end %>
+              <% @event.errors.full_messages_for(:description).each do |message| %>
+              <div><%= message %></div>
+              <% end %>
+              <% @event.errors.full_messages_for(:date).each do |message| %>
+              <div> <%= message %> </div>
+              <% end %>
+            <div class="form-outline">
+              <%= form.label :name,class: "form-label" %>
+              <%= form.text_field :name, class: "form-control" %>
             </div>
 
 
             <div class="form-outline mb-4">
               <%= form.label :description, class: "form-label" %>
               <%= form.text_field :description, class: "form-control" %>
-              <% @event.errors.full_messages_for(:description).each do |message| %>
-              <div><%= message %></div>
-              <% end %>
             </div>
 
             <div class='input-group date mb-4' id='picker'>
               <%= form.label :date, class: "form-label"%>
               <%= form.date_field :date , class: "join" %>
-              <% @event.errors.full_messages_for(:date).each do |message| %>
-              <div> <%= message %> </div>
-              <% end %>
             </div>
 
             <%= form.submit "Create Event", class: "btn btn-success btn-lg mb-1",id: 'event' %>

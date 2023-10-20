@@ -31,23 +31,24 @@
           class="w-100" style="border-top-left-radius: .3rem; border-top-right-radius: .3rem;"
           alt="Sample photo">
           <div class="card-body p-4 p-md-5 mb-5">
-            <h3 class="mb-4 pb-3 pb-md-1 px-md-2">Create Holiday</h3>
+            <h3 class="mb-4 pb-3 pb-md-1 px-md-2">Holiday Info</h3>
 
             <%= form_with model: @holiday,url:"/holidays",method: :post, class: "px-md-2" do |form| %>
-            <div class="form-outline mb-4">
-              <%= form.label :name,class: "form-label" %>
-              <%= form.text_field :name, class: "form-control" %>
               <% @holiday.errors.full_messages_for(:name).each do |message| %>
               <div><%= message %></div>
               <% end %>
+              <% @holiday.errors.full_messages_for(:date).each do |message| %>
+              <div> <%= message %> </div>
+              <% end %>
+
+            <div class="form-outline mb-4">
+              <%= form.label :name,class: "form-label" %>
+              <%= form.text_field :name, class: "form-control" %>
             </div>
 
             <div class='input-group date mb-4' id='picker'>
               <%= form.label :date, class: "form-label"%>
               <%= form.date_field :date , class: "join" %>
-              <% @holiday.errors.full_messages_for(:date).each do |message| %>
-              <div> <%= message %> </div>
-              <% end %>
             </div>
 
             <%= form.submit "Create Holiday", class: "btn btn-success btn-lg mb-1",id: 'holiday' %>
